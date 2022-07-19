@@ -61,7 +61,7 @@ public class JDBCLib {
 
     // Description: delete an entry with the given entryID in the table
     public void delete(String entryID) throws SQLException {
-        String Query = "delete from collisionReports where entryID = " + entryID;
+        String Query = "delete from collisionReports where entryID = " + entryID; // "change to 21 ti works"
 
 
         Connection connection = DriverManager.getConnection(url,

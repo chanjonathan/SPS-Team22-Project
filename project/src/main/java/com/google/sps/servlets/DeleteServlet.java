@@ -1,7 +1,7 @@
 package com.google.sps.servlets;
 
 import com.google.sps.database.JDBCLib;
-import com.google.sps.utilities.Http;
+import com.google.sps.utilities.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -31,7 +31,7 @@ public class DeleteServlet extends HttpServlet {
     }
 
     @Override
-    public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String entryID = http.getParameter(request, "entryID", "");
 
         try {
@@ -41,5 +41,6 @@ public class DeleteServlet extends HttpServlet {
             servletException.setStackTrace(sqlException.getStackTrace());
             throw servletException;
         }
+        response.sendRedirect("index.html");
     }
 }
