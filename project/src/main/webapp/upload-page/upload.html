@@ -1,69 +1,79 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="UTF-8">
     <title>Report a Case</title>
+    <link rel="icon" type="image/x-icon" href="../images/icon.png">
     <link rel="stylesheet" href="upload_style.css">
-    <script src="upload_script.js"></script>
+    <script type="module" src="upload_script.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-
-  </head>
-  <body>
-      <div id="content"> 
-        <form action="/index.html">
-            <input type="submit" value="Return to Main Page" />
-        </form>
-        <center><h1>Upload a report!</h1></center>
-        <form action="/upload" method="POST" enctype="multipart/form-data">
+</head>
+<body>
+<div id="content">
+    <form action="/index.html">
+        <input type="submit" class="button" value="Back"/>
+    </form>
+    <center><h2>New Report</h2></center>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
         <!-- contact info, title, latitude, longitude, date+time (use html component), img url -->
-            <p>Please complete the following details of the report:</p>
-            <ul>
-                <li class="inline-textbox">
-                    Input title of report: 
-                    <input type=text name="title" class="title" required>
-                </li> 
-                <br/>
-                <!-- Keeps visible coordinates while parsing latitude and longitude in the front end (hidden) -->
-                <li class="inline-textbox">
-                    Coordinates (click any location on the map):
-                    <input text id="coordinates" class="one-line" required>
-                </li> 
-                <input type="hidden" name="latitude" id="latitude" required>
-                <input type="hidden" name="longitude" id="longitude" required>
-                <br/>
-                <li class="inline-textbox">
-                    Time of incident: 
-                    <input type="datetime-local" name="time" required>
-                </li> 
-                <br/>
-                <li class="inline-textbox">Description of the collision:</li>
-                <textarea name="description">E.g. car types of those involved, etc.</textarea>
-                <br/>
-                <li id = "inline-textbox">
-                    Contact Phone Number: 
-                    <input text name="phone" class="one-line" required minlength="10">
-                </li>
-                <br/>
-            </ul>
-            <br/>
-            <p>Please attach a photo with your description if you can:</p>
-            <input type="file" name="image" required>
-            <br/> <br/>
-            <p>Please selection the location of the report. You can search for a location or click anywhere to set the longitude and latitude of the report.</p>
+        <div id="form">
+            <div class="left-panel">
+                Title:
+            </div>
+            <div class="right-panel">
+                <input type=text name="title" class="title" required>
+            </div>
+
+            <div class="left-panel">
+                Time:
+            </div>
+            <div class="right-panel">
+                <input type="datetime-local" name="time" required>
+            </div>
+
+            <div class="left-panel">
+                Description:
+            </div>
+            <div class="right-panel">
+                <textarea id="description" name="description">E.g. car types of those involved, etc.</textarea>
+            </div>
+
+            <div class="left-panel">
+                Contact Details:
+            </div>
+            <div class="right-panel">
+                <input text name="phone" class="one-line" required minlength="10">
+            </div>
+
+            <div class="left-panel">
+                Attach Image:
+            </div>
+            <div class="right-panel">
+                <div id="images-container" style="display: none">
+                </div>
+                <div id="image-upload-container">
+                    <input type="file" name="images">
+                </div>
+            </div>
+
+            <input id="coordinates" class="one-line" required>
+            <input type="hidden" name="latitude" id="latitude" required>
+            <input type="hidden" name="longitude" id="longitude" required>
             <input
-                id="pac-input"
-                class="controls"
-                type="text"
-                placeholder="Search Box"
+                    id="pac-input"
+                    class="controls"
+                    type="text"
+                    placeholder="Search Box"
             />
             <div id="map"></div>
             <br/>
             <script
-              src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBH_GoSj-x7Nzn-YwkQg2KBIZIGy59Uan0&region=US&language=en&callback=initAutocomplete&libraries=places&v=weekly"
+                    defer
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBH_GoSj-x7Nzn-YwkQg2KBIZIGy59Uan0&region=US&language=en&callback=initAutocomplete&libraries=places&v=weekly"
             ></script>
-            <button>Submit</button>
+            <button class="button">Submit</button>
             <br/><br/>
-        </form>
-      </div>
-  </body>
+    </form>
+</div>
+</body>
 </html>

@@ -3,33 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="theme-color" content="#0000000">
-    <title>Car Collision</title>
+    <title>Appeal No More</title>
+    <link rel="icon" type="image/x-icon" href="images/icon.png">
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
+    <script type="module" src="./map/map.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbskcye9gWYfKt8nHzuRaPudtpo2yr0so&region=US&language=en&callback=initialize"></script>
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbskcye9gWYfKt8nHzuRaPudtpo2yr0so&region=US&language=en&callback=initialize">
+    </script>
 </head>
 
 <body>
 <div id="content">
-    <h1 style="color: rgb(63, 63, 209);">Car Collision Map:</h1>
-    <form action="upload-page/upload.html">
-        <input type="submit" value="Upload an Incident Report"/>
-    </form>
-    <div id="panel-container" >
+        <form action="/sign-in/sign_in.html">
+            <button id="sign-up" class="button" style="vertical-align:middle">
+                Sign Up
+            </button>
+        </form>
+    <br>
+    <img id="logo" src="images/icon.png">
+    <div id="header">
+        <h1>Appeal No More</h1>
+        <h3>Your Reverse Witness Appeal Hub</h3>
+    </div>
+    <div id="panel-container">
         <div id="left-panel">
-            <h3>Start Time:
+            <h3>From:
                 <input type="datetime-local" id="start-time" onblur=placeMarkers()>
             </h3>
         </div>
         <div id="right-panel">
-            <h3>End Time:
+            <h3>To:
                 <input type="datetime-local" id="end-time" onblur=placeMarkers()>
             </h3>
         </div>
     </div>
     <div id="map"></div>
-</div>
-
+    <br>
+    <form action="/upload-page/upload.html">
+        <button id="new-report" class="button" style="vertical-align:middle"><span>New Report</span></button>
+    </form>
 </body>
 </html>

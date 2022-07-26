@@ -49,7 +49,7 @@ public class GetByIdServlet extends HttpServlet {
         }
 
         if (report == null) {
-            throw new IOException("Entry ID not found");
+            throw new ServletException("Entry ID not found");
         }
 
         String jsonReport = gson.toJson(report);

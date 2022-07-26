@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="theme-color" content="#0000000">
-    <title>Case Details</title>
+    <title>Report Details</title>
+    <link rel="icon" type="image/x-icon" href="../images/icon.png">
     <link rel="stylesheet" href="details_style.css">
     <script type="module" src="../map/map.js"></script>
     <script type="module" src="details_script.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbskcye9gWYfKt8nHzuRaPudtpo2yr0so&region=US&language=en&callback=initialize">
     </script>
@@ -14,24 +16,72 @@
 <body>
 <div id="content">
     <form id="header" action="/index.html">
-        <input type="submit" value="Back"/>
+        <input class="button" type="submit" value="Back"/>
     </form>
     <div id="panel-container">
         <div id="left-panel">
             <div id="map"></div>
         </div>
         <div id="right-panel">
-            <div id="details-container">
-                <h1 id="title-container"></h1>
+            <div class="View" id="details-container">
+                <h2 id="title-container"></h2>
                 <p id="date-container"></p>
                 <p id="description-container"></p>
                 <p id="contact-details-container"></p>
-                <img id="image-container" width="400">
+                <div id="images-container">
+                    <a id="forward" onclick="incrementSlide(1)">&#10095;</a>
+                    <a id="back" onclick="incrementSlide(-1)">&#10094;</a>
+                </div>
+                <br>
+                <div id="dots-container" style="text-align:center">
+                </div>
             </div>
-            <button id="delete-button" type="button">Delete</button>
+            <form class="Edit" id="edit-container">
+                <p>
+                    <label for="edit-title-container">Title: </label>
+                    <input type="text" name="title" id="edit-title-container">
+                </p>
+                <p>
+                    <label for="edit-date-container">Time: </label>
+                    <input type="datetime-local" name="date" id="edit-date-container">
+                </p>
+                <p>
+                    <label for="edit-description-container">Description: </label>
+                    <textarea id="edit-description-container" name="description"></textarea>
+                </p>
+                <p>
+                    <label for="edit-contact-details-container">Contact Details: </label>
+                    <input type="text" id="edit-contact-details-container" name="contactDetails">
+                </p>
+
+                <div id="edit-images-container" style="display: none">
+                </div>
+                <p>
+                <label for="new-image-upload-container">Upload New Images: </label>
+                <div id="new-image-upload-container">
+                    <input type="file" name="images" class="Image-input">
+                </div>
+                </p>
+
+            </form>
+            <div id="footer">
+                <a id="footer-left">
+                    <a class="View">
+                        <button class="button" id="edit-button" type="button">Edit</button>
+                    </a>
+                    <a class="Edit">
+                        <button class="button" id="save-button" type="button">Save</button>
+                        <button class="button" id="cancel-button" type="button">Cancel</button>
+                    </a>
+                </a>
+                <a id="footer-right">
+                    <div class="View">
+                        <button class="button" id="delete-button" type="button">Delete</button>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 </div>
 </body>
-
 </html>

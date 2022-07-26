@@ -1,42 +1,70 @@
 #content {
     margin: auto;
-    width: 650px;
+    width: 1000px;
 }
 
 #map {
     border: thin solid rgb(174, 219, 245);
-    height: 500px;
+    height: 800px;
     width: 100%;
 }
 
-html,
-body {
+html, body {
     height: 100%;
     margin: 0;
     padding: 0;
 }
 
-h1 {
-    color: rgb(63, 63, 209);
+* {
+    font-family: Helvetica;
+    font-size: 104%;
 }
 
-#image-container {
+h1 {
+    color: #202c3e;
+    font-size: 350%;
+    margin-bottom: -15px;
+}
+
+h2 {
+    color: #202c3e;
+    font-size: 200%;
+}
+
+h3 {
+    color: #202c3e;
+    font-size: 120%;
+}
+
+#image-container, #edit-image-container {
     width: 100%;
 }
 
-#details-container {
+#details-container, #edit-container {
     overflow-y: scroll;
     width: 100%;
-    height: 450px;
+    height: 90%;
     padding: 10px;
 }
 
-#header {
+#edit-description-container {
+    width: 100%;
+    height: 100px;
+    padding: 5px 5px;
+    margin: 4px 0;
+    box-sizing: border-box;
+}
+
+#footer {
+    width: 100%;
+}
+
+#footer-left {
+    width: 50%;
     margin: 10px;
 }
 
-#delete-button {
-    margin: 10px;
+#footer-right {
     float: right;
 }
 
@@ -51,5 +79,163 @@ h1 {
 }
 
 #right-panel {
+    height: 800px;
     margin-left: 50%;
+}
+
+.button {
+    display: inline-block;
+    border-radius: 20px;
+    background-color: #140a01;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 15px;
+    padding: 10px;
+    width: 200px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+    border: none;
+    outline: none;
+}
+
+.button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.button:hover span {
+    padding-right: 25px;
+}
+
+.button:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+#logo {
+    position: absolute;
+    height: 100px;
+    margin-left: 10px;
+    margin-top: 50px;
+}
+
+.Edit {
+    visibility: hidden;
+}
+
+.View {
+    visibility: hidden;
+}
+
+/* Slideshow container */
+#images-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+}
+
+/* Make the images invisible by default */
+.Image {
+    display: none;
+}
+
+/* forward & Back buttons */
+#forward, #back {
+    cursor: pointer;
+    position: absolute;
+    top: 48%;
+    width: auto;
+    margin-top: -23px;
+    padding: 17px;
+    color: grey;
+    font-weight: bold;
+    font-size: 19px;
+    transition: 0.4s ease;
+    border-radius: 0 5px 5px 0;
+    user-select: none;
+}
+
+/* Place the "forward button" to the right */
+#forward {
+    right: 0;
+    border-radius: 4px 0 0 4px;
+}
+
+/*when the user hovers,add a black background with some little opacity */
+#back:hover, #forward:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* The circles or bullets and indicators */
+.Dot {
+    cursor: pointer;
+    height: 16px;
+    width: 16px;
+    margin: 0 3px;
+    background-color: #afbed6;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.5s ease;
+}
+
+.Enabled, .Dot:hover {
+    background-color: #202c3e;
+}
+
+/* Faint animation */
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.4s;
+    animation-name: fade;
+    animation-duration: 1.4s;
+}
+
+@-webkit-keyframes fade {
+    from {
+        opacity: .5
+    }
+    to {
+        opacity: 2
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: .5
+    }
+    to {
+        opacity: 2
+    }
+}
+
+#edit-images-container {
+    overflow: auto;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.Image-new, .Image-old {
+    height: 250px;
+    padding: 10px;
+}
+
+.Overlay {
+    vertical-align: top;
+    position: relative;
+    height: 25px;
+    top: 20px;
+    right: 45px;
 }

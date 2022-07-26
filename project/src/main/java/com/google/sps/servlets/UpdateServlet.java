@@ -1,9 +1,8 @@
 package com.google.sps.servlets;
 
-//Database
-
 import com.google.cloud.storage.*;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.google.sps.database.JDBCLib;
 import com.google.sps.objects.Report;
 import com.google.sps.utilities.Http;
@@ -17,61 +16,68 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//Multi-input Form
-//Exception Handling
-//Cloud Storage
+/**
+ * Handles requests sent to the /text-form-handler URL. Takes given list and tries to sort and return it.
+ */
 
 
-@WebServlet("/upload")
+@WebServlet("/put")
 @MultipartConfig
-public class UploadReport extends HttpServlet {
+
+public class UpdateServlet extends HttpServlet {
 
     JDBCLib database;
     Gson gson;
     Http http;
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public UpdateServlet() {
         database = new JDBCLib();
+        gson = new Gson();
         http = new Http();
+    }
 
-        //Retrieves all the data from the submitted form
+    @Override
+    public void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
         String title = http.getParameter(request, "title", "");
         String latitude = http.getParameter(request, "latitude", "");
         String longitude = http.getParameter(request, "longitude", "");
-        String date = http.getParameter(request, "time", "");
+        String date = http.getParameter(request, "date", "");
         String description = http.getParameter(request, "description", "");
-        String contactDetails = http.getParameter(request, "phone", "");
-        String entryID = "";
-        ArrayList<String> imageURLs = cloudImg(request, response);
+        String contactDetails = http.getParameter(request, "contactDetails", "");
+        String entryID = http.getParameter(request, "entryID", "");
+        String jsonImageURLs = http.getParameter(request, "imageURLs", "");
 
-        //Creates report object and adds it to database
+        Type listType = new TypeToken<ArrayList<String>>() {
+        }.getType();
+        ArrayList<String> imageURLs = gson.fromJson(jsonImageURLs, listType);
+
+        imageURLs = addImageURLs(request, imageURLs);
+
         Report report = new Report(title, latitude, longitude, date, description, contactDetails, imageURLs, entryID);
+
         try {
-            database.insert(report);
+            database.update(report);
         } catch (SQLException sqlException) {
             ServletException servletException = new ServletException(sqlException.getMessage());
             servletException.setStackTrace(sqlException.getStackTrace());
             throw servletException;
         }
-
-        response.sendRedirect("/");
     }
 
-    /**
-     * Takes an image submitted by the user and uploads it to Cloud Storage, returns needed URL or "" if none
-     */
-    public ArrayList<String> cloudImg(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Get the file chosen by the user.
+    private ArrayList<String> addImageURLs(HttpServletRequest request, ArrayList<String> imageURLs) throws ServletException, IOException {
         List<Part> fileParts = request.getParts().stream().
                 filter(part -> "images".equals(part.getName())).collect(Collectors.toList());
-
-        ArrayList<String> uploadedFileUrls = new ArrayList<String>();
         for (Part filePart : fileParts) {
+            if (filePart == null) {
+                throw new ServletException("filepart is null");
+            }
             String fileName = filePart.getSubmittedFileName();
             InputStream fileInputStream = filePart.getInputStream();
 
@@ -80,28 +86,24 @@ public class UploadReport extends HttpServlet {
                 if (uploadedFileUrl == null) {
                     uploadedFileUrl = "";
                 }
-                uploadedFileUrls.add(uploadedFileUrl);
+
+                imageURLs.add(uploadedFileUrl);
             }
         }
-        return uploadedFileUrls;
+        return imageURLs;
     }
 
-    /**
-     * Uploads a file to Cloud Storage and returns the uploaded file's URL.
-     */
     private static String uploadToCloudStorage(String fileName, InputStream fileInputStream) {
         fileName = System.currentTimeMillis() + fileName;
 
-        String projectId = "jchan";
+        String projectId = "jchan-sps-summer22";
         String bucketName = "jchan-sps-summer22.appspot.com";
         Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
         BlobId blobId = BlobId.of(bucketName, fileName);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
 
-        // Upload the file to Cloud Storage.
         Blob blob = storage.create(blobInfo, fileInputStream);
 
-        // Return the uploaded file's URL.
         return blob.getMediaLink();
     }
 }

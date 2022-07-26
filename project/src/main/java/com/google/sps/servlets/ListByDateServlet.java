@@ -24,13 +24,13 @@ import java.util.ArrayList;
 @WebServlet("/list-by-date-and-coordinates")
 @MultipartConfig
 
-public class ListByDateAndCoordinates extends HttpServlet {
+public class ListByDateServlet extends HttpServlet {
 
     JDBCLib database;
     Gson gson;
     Http http;
 
-    public ListByDateAndCoordinates() {
+    public ListByDateServlet() {
         database = new JDBCLib();
         gson = new Gson();
         http = new Http();
@@ -56,6 +56,4 @@ public class ListByDateAndCoordinates extends HttpServlet {
         response.setContentType("text/html;");
         response.getWriter().println(jsonReport);
     }
-
-
 }

@@ -1,0 +1,121 @@
+#content {
+    margin: auto;
+    width: 1000px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    font-family: Helvetica;
+    font-size: 104%;
+}
+
+.sign-up-form {
+    width: 300px;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3);
+    background: #fff;
+    padding: 20px;
+    margin: 8% auto 0;
+    margin-top: 6%;
+    text-align: center;
+}
+
+.sign-up-form h1 {
+    color: #202c3e;
+    font-size: 200%;
+}
+
+.input-box {
+    border-radius: 20px;
+    padding: 10px;
+    margin: 10px 0;
+    width: 90%;
+    border: 1px solid #101111;
+    outline: none;
+
+}
+
+button {
+    color: #fff;
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 15px;
+    margin: 10px 0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.signUp-btn {
+    background-color: #3b68e4;
+}
+
+.Google-btn {
+    background-color: #678bee;
+}
+
+a {
+    text-decoration: none;
+}
+
+hr {
+    margin-top: 20px;
+    width: 80%;
+}
+
+.or {
+    background-color: #fff;
+    width: 30px;
+    margin: -19px auto 10px;
+}
+
+img {
+    width: 70px;
+    margin-top: -50px;
+}
+
+.button {
+    display: inline-block;
+    border-radius: 20px;
+    background-color: #140a01;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 15px;
+    padding: 10px;
+    width: 200px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+    border: none;
+    outline: none;
+}
+
+.button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.button:hover span {
+    padding-right: 25px;
+}
+
+.button:hover span:after {
+    opacity: 1;
+    right: 0;
+}
